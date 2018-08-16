@@ -72,12 +72,19 @@ uintmax_t Counter::getTotalSystemMemory()
 	return status.ullTotalPhys;
 }
 
+size_t Counter::getTotalSystemThreads()
+{
+	size_t num_threads = std::thread::hardware_concurrency();
+	if (num_threads < 3) num_threads = 3;
+	return num_threads;
+}
+
 bool Counter::CalcFileSignHT()
 {
 	uintmax_t bs = this->BlockSize;
 	uintmax_t fs = this->FileSize;
 	
-	size_t num_threads = std::thread::hardware_concurrency();
+	size_t num_threads = this->getTotalSystemThreads();
 	std::cout << "Потоков доступно: " << num_threads << std::endl;
 
 	size_t num_writer_threads = 1; // IO - по одному потоку 

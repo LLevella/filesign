@@ -25,6 +25,9 @@ class Counter
 	//объем доступной оперативной памяти
 	uintmax_t getTotalSystemMemory();
 
+	//колличество доступных тредов
+	size_t getTotalSystemThreads();
+
 	//обнуление буфера
 	bool NullBuffer(char * buffer, uintmax_t buffer_size);
 
