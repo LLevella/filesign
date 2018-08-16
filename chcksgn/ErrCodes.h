@@ -13,5 +13,6 @@ enum ErrCodes : int {
 	closedstream,
 	notnullbuffer,
 	nullpointer,
-	nullfilesize
+	nullfilesize,
+	badread
 };

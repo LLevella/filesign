@@ -148,7 +148,7 @@ bool Counter::FileReader() // процесс чтения
 				this->AllDataRead.store(true);
 				break;
 			}
-			this->fin.get()->read(buffer.get(), bs);
+			ThrowLastErrorIf((!this->fin.get()->read(buffer.get(), bs)), badread, "Ошибка чтения");
 			this->FromReadToHash.push(std::string(buffer.get()));
 			ibs += bs;
 			i++;
@@ -163,10 +163,6 @@ bool Counter::FileReader() // процесс чтения
 	}
 	catch (std::exception &se) {
 		std::cout << se.what();
-	}
-	catch (...)
-	{
-		std::cout << "Неизвестная ошибка";
 	}
 	return true;
 }
@@ -202,10 +198,6 @@ bool Counter::FileHasher() // процесс подсчета хэша
 	catch (std::exception &se) {
 		std::cout << se.what();
 	}
-	catch (...)
-	{
-		std::cout << "Неизвестная ошибка";
-	}
 	return true;
 }
 
@@ -232,10 +224,6 @@ bool Counter::FileWriter() // процесс записи
 	}
 	catch (std::exception &se) {
 		std::cout << se.what();
-	}
-	catch (...)
-	{
-		std::cout << "Неизвестная ошибка";
 	}
 	return true;
 }
